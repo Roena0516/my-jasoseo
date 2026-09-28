@@ -1,0 +1,518 @@
+/*
+ * Layout values are taken 1:1 from the Figma frames (595 × 842 = A4 in pt),
+ * so everything inside .page is expressed in pt and prints at exact size.
+ */
+
+:root {
+  --ink-title: #212121;
+  --ink-body: #1b1b1b;
+  --accent: #3e6af2;
+  --ui-bg: #e9eaee;
+  --ui-fg: #1f2329;
+  --ui-muted: #6b7280;
+  --ui-line: #d7d9df;
+  --ui-danger: #d93a3a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: var(--ui-bg);
+  color: var(--ui-fg);
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ───────────── Toolbar ───────────── */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ui-line);
+}
+
+.toolbar__title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.toolbar__save {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ui-muted);
+}
+
+.toolbar__save--error {
+  color: var(--ui-danger);
+}
+
+.toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.toolbar__actions > button,
+.toolbar__zoom select {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: var(--ui-fg);
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 6px;
+}
+
+.toolbar__actions > button:hover {
+  background: #f4f5f7;
+}
+
+.toolbar__actions > button.primary {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.toolbar__actions > button.primary:hover {
+  background: #2f58d6;
+}
+
+.toolbar__zoom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+  font-size: 13px;
+  color: var(--ui-muted);
+}
+
+.toolbar__zoom select {
+  padding: 0 6px;
+}
+
+.hint {
+  margin: 14px auto 0;
+  padding: 0 20px;
+  max-width: 900px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ui-muted);
+  text-align: center;
+}
+
+/* ───────────── Pages ───────────── */
+
+.pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 20px 16px 80px;
+}
+
+.page-wrap {
+  width: 210mm;
+}
+
+.page {
+  position: relative;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 0 40pt;
+  background: #fff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.page--first {
+  padding-top: 37pt;
+}
+
+.page--rest {
+  padding-top: 84pt;
+}
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10pt;
+}
+
+.page--first .page__content {
+  margin-top: 25pt;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 28pt;
+}
+
+.page--first .sections {
+  gap: 18pt;
+}
+
+/* Logo (Figma “밝은 배경용” group): x 466.6, y 37, 88.4 × 11.9 */
+.logo {
+  position: absolute;
+  top: 37pt;
+  left: 466.6pt;
+  width: 88.4pt;
+  height: 11.9pt;
+}
+
+/* ───────────── Header (page 1) ───────────── */
+
+.doc-header {
+  width: 453.3pt;
+  letter-spacing: -0.2pt;
+  color: var(--ink-title);
+}
+
+.doc-header__title {
+  font-size: 24pt;
+  font-weight: 600;
+  line-height: 25pt;
+}
+
+.doc-header__line {
+  font-size: 24pt;
+  font-weight: 600;
+  line-height: 25pt;
+}
+
+.doc-header__gap {
+  white-space: pre;
+}
+
+/* line-height 1 keeps the smaller inline run from growing the 25pt line box (Figma: 2 lines = 50pt). */
+.doc-header__tagline {
+  line-height: 1;
+  font-size: 14pt;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+/* ───────────── Section ───────────── */
+
+.section__head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9pt;
+  min-height: 15pt;
+  margin-bottom: 10pt;
+}
+
+.section__title {
+  flex: none;
+  max-width: 100%;
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 15pt;
+  letter-spacing: -0.2pt;
+  color: var(--ink-title);
+  white-space: pre-wrap;
+}
+
+.section__rule {
+  flex: 1;
+  min-width: 0;
+  height: 2pt;
+  background: rgba(33, 33, 33, 0.05);
+}
+
+.section__items {
+  display: flex;
+  flex-direction: column;
+  gap: 10pt;
+}
+
+.item {
+  position: relative;
+  font-size: 10pt;
+  font-weight: 400;
+  line-height: 16pt;
+  letter-spacing: 0.3pt;
+  color: var(--ink-body);
+}
+
+.item__title {
+  font-weight: 600;
+  white-space: pre-wrap;
+}
+
+.item__body {
+  white-space: pre-wrap;
+}
+
+/* Figma counts a trailing line break as an empty line; the zero-width char makes the browser do the same. */
+.item__body::after {
+  content: '\200b';
+}
+
+/* ───────────── Signature (last page) ───────────── */
+
+.signature {
+  position: relative;
+  align-self: center;
+  padding: 8pt;
+  font-size: 10pt;
+  line-height: 16pt;
+  letter-spacing: 0.3pt;
+  color: #000;
+  text-align: center;
+}
+
+.signature__text {
+  white-space: pre;
+}
+
+/* Figma: image 45 × 34 at 7pt past the right edge / 32pt below the top of the 103 × 64 box. */
+.signature__image {
+  position: absolute;
+  top: 32pt;
+  right: -7pt;
+  width: 45pt;
+  height: 34pt;
+}
+
+/* ───────────── Images ───────────── */
+
+.image-slot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-slot__controls {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 3;
+  display: none;
+  gap: 2px;
+  padding-top: 4px;
+  white-space: nowrap;
+}
+
+.image-slot:hover .image-slot__controls {
+  display: flex;
+}
+
+.image-slot__add {
+  width: 100%;
+  height: 100%;
+  min-height: 16px;
+  padding: 0;
+  font-size: 10px;
+  color: var(--ui-muted);
+  background: transparent;
+  border: 1px dashed var(--ui-line);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ───────────── Editing affordances (screen only) ───────────── */
+
+@media screen {
+  .editable {
+    border-radius: 2px;
+    outline: none;
+    transition: background-color 0.12s;
+  }
+
+  .editable:hover {
+    background: rgba(62, 106, 242, 0.06);
+  }
+
+  .editable:focus {
+    background: rgba(62, 106, 242, 0.04);
+    box-shadow: 0 0 0 2px rgba(62, 106, 242, 0.35);
+  }
+
+  .editable:empty::before {
+    content: attr(data-placeholder);
+    color: #b3b8c2;
+  }
+
+  .image-slot:hover img {
+    outline: 1px dashed rgba(62, 106, 242, 0.6);
+    outline-offset: 2px;
+  }
+
+  .page.is-overflow {
+    box-shadow:
+      0 0 0 2px rgba(217, 58, 58, 0.5),
+      0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.page__safe-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.is-overflow .page__safe-line {
+  visibility: visible;
+  border-top: 1px dashed var(--ui-danger);
+}
+
+.page__safe-line span {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  font-size: 11px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--ui-danger);
+  border-radius: 4px;
+}
+
+/* Hover controls sit in the gutter to the right of the page; padding-left bridges the page margin. */
+.controls {
+  position: absolute;
+  top: -2px;
+  left: 100%;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  gap: 3px;
+  padding-left: calc(40pt + 12px);
+  font-family: Pretendard, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.item:hover > .controls,
+.item:focus-within > .controls,
+.section__head:hover > .controls,
+.section__head:focus-within > .controls {
+  display: flex;
+}
+
+.controls__label {
+  margin-right: 3px;
+  color: var(--ui-muted);
+}
+
+.controls button,
+.image-slot__controls button,
+.page-actions button {
+  height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+  color: var(--ui-fg);
+  background: #fff;
+  border: 1px solid var(--ui-line);
+  border-radius: 5px;
+}
+
+.controls button:hover:not(:disabled),
+.image-slot__controls button:hover,
+.page-actions button:hover {
+  background: #f4f5f7;
+}
+
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.controls button.danger,
+.page-actions button.danger {
+  color: var(--ui-danger);
+}
+
+.page-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.page-actions__num {
+  margin-right: auto;
+  font-size: 12px;
+  color: var(--ui-muted);
+}
+
+/* ───────────── Print / PDF ───────────── */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .pages {
+    display: block;
+    padding: 0;
+    zoom: 1 !important;
+  }
+
+  .page-wrap {
+    width: auto;
+  }
+
+  .page {
+    height: 297mm;
+    overflow: hidden;
+    box-shadow: none;
+    break-after: page;
+  }
+
+  .page-wrap:last-child .page {
+    break-after: auto;
+  }
+}
