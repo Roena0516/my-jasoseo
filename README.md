@@ -30,5 +30,4 @@ npm run build    # dist/
 
 ## 배포
 
-`main`에 push하면 GitHub Actions(`.github/workflows/deploy.yml`)가 GitHub Pages로 배포합니다.
-처음 한 번은 저장소 **Settings → Pages → Source**를 **GitHub Actions**로 설정해야 합니다.
+Vercel로 배포합니다.
